@@ -4,6 +4,11 @@ from django.urls import reverse
 
 # Create your models here.
 
+'''
+There are two models for the blog store in SQL:
+    - Post
+    - Comments
+'''
 # create blog post
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
