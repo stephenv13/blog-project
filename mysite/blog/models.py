@@ -11,7 +11,7 @@ There are two models for the blog store in SQL:
 '''
 # create blog post
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User',on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=200)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now())
@@ -35,8 +35,8 @@ class Post(models.Model):
         return self.title
 
 # create comment
-class Comments(model.Model):
-    post = models.ForeignKey('blog.post',related_name='comments')
+class Comments(models.Model):
+    post = models.ForeignKey('blog.post',related_name='comments', on_delete=models.DO_NOTHING)
     author = models.CharField(max_length=200)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now())

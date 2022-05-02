@@ -1,9 +1,11 @@
-from socket import fromshare
-from attr import attrs
 from django import forms
-from matplotlib import widgets
-from blog.models import Post,Comment
+from blog.models import Post,Comments
 
+'''
+There are two forms on the blog:
+    - Blog Post Form
+    - Blog Comment F
+'''
 # widgets inside of the Meta() class make the form editable by CSS styling
 
 
@@ -16,13 +18,13 @@ class PostForm(forms.ModelForm):
 
         widgets = {
             'title':forms.TextInput(attrs={'class':'textinputclass'}),
-            'text':forms.textArea(attrs={'class':'editable medium-editor-textarea postcontent'}),
+            'text':forms.Textarea(attrs={'class':'editable medium-editor-textarea postcontent'}),
         }
 
 class CommentForm(forms.ModelForm):
     
     class Metal():
-        model = Comment
+        model = Comments
         fields = ('author','text')
 
         widgets = {
