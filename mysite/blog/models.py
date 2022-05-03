@@ -35,7 +35,7 @@ class Post(models.Model):
         return self.title
 
 # create comment
-class Comments(models.Model):
+class Comment(models.Model):
     post = models.ForeignKey('blog.post',related_name='comments', on_delete=models.DO_NOTHING)
     author = models.CharField(max_length=200)
     text = models.TextField()
