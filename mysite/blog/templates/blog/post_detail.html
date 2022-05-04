@@ -18,7 +18,7 @@
 {% endif %}
 
 <!-- post content -->
-<p class="postcontent">{{ post.title|safe|linebreaksbr }}</p>
+<p class="postcontent">{{ post.text|safe|linebreaksbr }}</p>
 
 <!-- if user is logged in, user can edit or remove post -->
 {% if user.is_authenticated %}

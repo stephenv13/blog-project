@@ -13,7 +13,7 @@ class PostForm(forms.ModelForm):
 
     class Meta():
         model = Post
-        fields = ('author','title','title')
+        fields = ('author','title','text')
 
 
         widgets = {
@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     
-    class Metal():
+    class Meta():
         model = Comment
         fields = ('author','text')
 

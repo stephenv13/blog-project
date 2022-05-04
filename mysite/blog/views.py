@@ -76,7 +76,7 @@ def add_comment_to_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
 
     if request.method == 'POST':
-        form = CommentForm(request.Post)
+        form = CommentForm(request.POST)
 
         # if the form is valid, save the form to the post. Othewise, return back to comment form
         if form.is_valid():
@@ -107,6 +107,6 @@ def comment_remove(request,pk):
 @login_required
 def post_publish(request,pk):
     post = get_object_or_404(Post,pk=pk)
-    post.publish
+    post.publish()
     return redirect('post_detail',pk=pk)
 
