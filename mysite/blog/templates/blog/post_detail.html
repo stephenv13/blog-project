@@ -1,0 +1,67 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<!-- post title -->
+<h1 class="posttitle loader">{{post.title}}</h1>
+
+<!-- check if a post is published -->
+{% if post.published_date %}
+<!-- post date -->
+<div class="date postdate">
+    {{ post.published_date }}
+</div>
+
+<!-- if post is not published, ask user if they want to publish the post -->
+{% else %}
+<a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+
+{% endif %}
+
+<!-- post content -->
+<p class="postcontent">{{ post.title|safe|linebreaksbr }}</p>
+
+<!-- if user is logged in, user can edit or remove post -->
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">
+    <span class="glyphicon glyphicon-pencil"></span>
+</a>
+<a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}">
+    <span class="glyphicon glyphicon-remove"></span>
+</a>
+
+{% endif %}
+
+<hr>
+<a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+
+<!-- show all comments on post -->
+<div class="container">
+    {% for comment in post.comments.all %}
+    <br>
+
+    <!-- if user is logged in, show comment if approved -->
+    {% if user.is_authenticated or commment.approved_comment %}
+        {{comment.created_date}}
+
+        <!-- If comment is not approved, give options to approve or remove comment -->
+        {% if not comment.approved_comment %}
+        <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+        {% endif %}
+
+        <p>{{comment.text|safe|linebreaks}}</p>
+        <p>Posted By: {{comment.author}}</p>
+
+    {% endif %}
+
+    <!-- if there are no comments, show "no comments" -->
+    {% empty %}
+        <p>No Comments</p>
+    {% endfor%}
+</div>
+
+{% endblock %}
